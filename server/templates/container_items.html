@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br><!--
+<div class="add_buttons">
+
+<div class="button-group">
+      <a href="{% url 'display_host' %}" class="btn btn-primary btn-md btn-trim" role="button"> Back</a>
+      <a href="{% url 'add_vm' %}" class="btn btn-info btm btn-sm" role="button">Add VM</a>
+    </div>>
+  
+  </div>
+  -->
+
+
+
+<div class="navbar navbar-expand navbar">
+  
+  <ul class="navbar-nav mr-auto">
+    <li><h5>List of VMs in {{ container.name }}, Total = {{ servers.count }} </h5></li>
+    <li style="padding-left: .6cm; "></li>
+    <li style="font-size: 15px;">RAM Used: {{ram_vm}} out of {{ container.ram }} GB</li>
+    <li style="padding-left: .6cm;"></li>
+    <li style="font-size: 15px;">HDD Used: {{hdd_vm}} out of {{ container.hdd }} GB</li>
+    <li style="padding-left: .6cm;"></li>
+    <li style="font-size: 15px;">CPU Used: {{cpu_vm}} out of {{ container.processor }}</li>
+  </ul>
+
+</div>
+
+  <table class="table table-hover">
+    <thead style="background-color: rgba(133, 202, 248, 0.356)">
+          <tr>
+            <th>Name</th>
+            <th>IP Address</th>
+            <th>RAM Capacity</th>
+            <th>Processor</th>
+            <th>HDD Capacity</th>
+            <th>Operating System</th>
+            <th>App Owner</th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Container</th>
+            <th>DPM Backup</th>
+            
+          </tr>
+    </thead>
+
+    <tbody>
+
+      {% for servers in servers %}
+
+      <tr>
+        <td><a class="btn btn-outline-primary btn btn-sm" role="button" aria-pressed="false">{{ servers.name }}</a></td>
+        <td>{{ servers.ip_address}}</td>
+        <td>{{ servers.ram }} GB</td>
+        <td>{{ servers.processor }}</td>
+        <td>{{ servers.hdd }} GB</td>
+        <td>{{ servers.os }}</td>
+        <td>{{ servers.app_owner }}</td>
+        {% if servers.status == "Running" %}
+        <td><a class="alert alert-success" role="alert" aria-pressed="false">{{ servers.status }}</a></td>
+        {% else %}
+        <td><a class="alert alert-danger" role="alert" aria-pressed="false">{{ servers.status }}</a></td>
+        {% endif %}
+        <td>{{ servers.descriptions }}</td>
+        <td>{{ servers.container.name }}</td>
+        <td>{{ servers.dpm }}</td>
+        <!--
+        <td>
+            <a href="{% url 'edit_vm' servers.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true" > Edit</a>
+            <a href="{% url 'delete_vm' servers.pk %}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-sm" role="button" aria-pressed="true" > Delete</a>
+        </td>-->
+      </tr>
+
+      {% endfor %}
+    
+    </tbody>
+
+  </table>
+{% endblock %}

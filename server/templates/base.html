@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  {% if title %}
+  <title>Server Inventory</title>
+  {% else %}
+  <title>NRB Bank | Server Inventory</title>
+  {% endif %}
+  <link rel="shortcut icon" href="{% static 'favicon/nrbbank.png' %}" />
+</head>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.min.css' %}" />
+
+<body style="font-size: small;">
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+
+    <a class="navbar-brand" href="{% url 'home' %}"><img style="max-width: 150px; max-height: 130px;"
+        src="{% static 'brand/nrb-bank.png' %}" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+      aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExample02">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'display_host' %}">Host Machines</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'display_vm' %}">VM Machines</a>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link">|</p>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dc_items' %}">DC</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dr_items' %}">DR</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'far_dr_items' %}">Far DR</a>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link">|</p>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+      </ul>
+      <a class="nav-link" target="_blank" href="http://127.0.0.1:8000/admin">Admin Login</a>
+    </div>
+  </nav>
+
+  <br>
+  <div class="container-fluid" style="font-size: 12px;">
+
+    <div class="navbar navbar-expand">
+      <!--
+  <ul class="navbar-nav mr-auto">
+        <li><a href="{% url 'display_host' %}" class="btn btn-primary btn-md btn-trim" role="button"> Host Machine</a>
+          <a href="{% url 'add_host' %}" class="btn btn-info btm btn-sm" role="button"> +</a></li>
+        <li style="padding-left: .5cm;"></li>
+
+        <li><a href="{% url 'display_vm' %}" class="btn btn-primary btn-md btn-trim" role="button"> VM Machine</a>
+          <a href="{% url 'add_vm' %}" class="btn btn-info btm btn-sm" role="button">+</a></li>
+      </ul>
+      <form class="form-inline my-2 my-md-0" method="POST" action="/search/">
+        {% csrf_token %}
+        <input class="form-control" name="srh" type="text" placeholder="Search">
+        <input type="submit" class="btn btn-info btm btn-sm" role="button" value="Search">
+      </form>
+-->
+
+      <ul class="navbar-nav mr-auto">
+        <h3> Server Inventory Management System</h3>
+      </ul>
+      <form class="form-inline my-2 my-md-0" method="POST" action="/search/">
+        {% csrf_token %}
+        <input class="form-control" name="srh" type="text" placeholder="Search">
+        <input type="submit" class="btn btn-info btm btn-sm" role="button" value="Search">
+      </form>
+
+    </div>
+    {% block body %}
+
+
+    {% endblock%}
+
+  </div>
+
+</body>
+<br>
+<footer style="
+      position:fixed;
+      bottom:0px;
+      width:100%;
+      height:40px;   /* Height of the footer */
+      background-color: rgba(133, 202, 248, 0.756)" class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div style="margin-bottom: 2cm;" class="footer-copyright text-center py-3">Copyright © 2020
+    <a href="https://nrbbankbd.com/" target="_blank">NRB Bank Ltd.</a> All rights reserved.
+  </div>
+  <!-- Copyright -->
+
+</footer>
+
+</html>

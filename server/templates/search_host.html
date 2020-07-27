@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+<h5>Your Search Results: {{sr_h.count}}</h5>
+<div>
+    {% if messages %}
+    <ul class="messages"> 
+        {% for k in messages %} 
+            <li style="color: red;">{{k}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<br>
+<div style="color: royalblue;">
+    <table class="table table-hover">
+      <thead style="background-color: rgba(133, 202, 248, 0.356)">
+        <tr>
+          <th>Name</th>
+          <th>IP Address</th>
+          <th>RAM Capacity</th>
+          <th>Processor</th>
+          <th>HDD Capacity</th>
+          <th>Operating System</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Location</th>
+          <th>Serial Number</th>
+            
+        </tr>
+      </thead>
+      <tbody>   
+        {% for sh in sr_h %}    
+          <tr>
+            <td><a href="{% url 'container_items' sh.pk %}" class="btn btn-outline-primary btn btn-sm" role="button" aria-pressed="false">{{ sh.name }}</a></td>
+            <td>{{ sh.ip_address}}</td>
+            <td>{{ sh.ram }} GB</td>
+            <td>{{ sh.processor }}</td>
+            <td>{{ sh.hdd }} GB</td>
+            <td>{{ sh.os }}</td>
+            {% if sh.status == "Running" %}
+            <td><a class="alert alert-success" role="alert" aria-pressed="false">{{ sh.status }}</a></td>
+            {% else %}
+            <td><a class="alert alert-danger" role="alert" aria-pressed="false">{{ sh.status }}</a></td>
+            {% endif %}
+            <td>{{ sh.descriptions }}</td>
+            <td>{{ sh.site }}</td>
+            <td>{{ sh.sn }}</td>
+          </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+   
+</div>
+
+{% endblock%}

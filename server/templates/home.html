@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+<div>
+
+  <h5> {{ header }},  Total = {{ host.count }}</h5>
+</div>
+
+<table class="table table-hover">
+  <thead style="background-color: rgba(133, 202, 248, 0.356)">
+    <tr>
+      <th>Name</th>
+      <th>IP Address</th>
+      <th>RAM Capacity</th>
+      <th>Processor</th>
+      <th>HDD Capacity</th>
+      <th>Operating System</th>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Serial Number</th>
+      
+    
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% for host in host %}
+
+    <tr>
+      <td><a href="{% url 'container_items' host.pk %}" class="btn btn-outline-primary btn btn-sm" role="button" aria-pressed="true">{{ host.name }}</a></td>
+      <td>{{ host.ip_address}}</td>
+      <td>{{ host.ram }} GB</td>
+      <td>{{ host.processor }}</td>
+      <td>{{ host.hdd }} GB</td>
+      <td>{{ host.os }}</td>
+      {% if host.status == "Running" %}
+      <td><a class="alert alert-success" role="alert" aria-pressed="false">{{ host.status }}</a></td>
+      {% else %}
+      <td><a class="alert alert-danger" role="alert" aria-pressed="false">{{ host.status }}</a></td>
+      {% endif %}
+      <td>{{ host.descriptions }}</td>
+      <td>{{ host.site }}</td>
+      <td>{{ host.sn }}</td>
+      <!--
+      <td>
+        <a href="{% url 'edit_host' host.pk %}" class="btn btn-warning btn-sm" role="button" aria-pressed="true">
+          Edit</a>
+        <a href="{% url 'delete_host' host.pk %}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger btn-sm" role="button" aria-pressed="true">
+          Delete</a>
+      </td>-->
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+
+</table>
+
+{% endblock %}

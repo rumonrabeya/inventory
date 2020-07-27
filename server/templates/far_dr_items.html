@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+<div>
+
+  <h5> {{ header }},  Total = {{ far_dr.count }}</h5>
+</div>
+
+<table class="table table-hover">
+  <thead style="background-color: rgba(133, 202, 248, 0.356)">
+    <tr>
+      <th>Name</th>
+      <th>IP Address</th>
+      <th>RAM Capacity</th>
+      <th>Processor</th>
+      <th>HDD Capacity</th>
+      <th>Operating System</th>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Serial Number</th>
+      
+    
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% for far_dr in far_dr %}
+
+    <tr>
+      <td><a href="{% url 'container_items' far_dr.pk %}" class="btn btn-outline-primary btn btn-sm" role="button" aria-pressed="true"> {{ far_dr.name }}</a></td>
+      <td>{{ far_dr.ip_address}}</td>
+      <td>{{ far_dr.ram }} GB </td>
+      <td>{{ far_dr.processor }}</td>
+      <td>{{ far_dr.hdd }} GB</td>
+      <td>{{ far_dr.os }}</td>
+      {% if far_dr.status == "Running" %}
+      <td><a class="alert alert-success" role="alert" aria-pressed="false">{{ far_dr.status }}</a></td>
+      {% else %}
+      <td><a class="alert alert-danger" role="alert" aria-pressed="false">{{ far_dr.status }}</a></td>
+      {% endif %}
+      <td>{{ far_dr.descriptions }}</td>
+      <td>{{ far_dr.site }}</td>
+      <td>{{ far_dr.sn }}</td>
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<br>
+<div>
+
+  <h5> {{ header }},  Total = {{ dr_site.count }}</h5>
+</div>
+
+<table class="table table-hover">
+  <thead style="background-color: rgba(133, 202, 248, 0.356)">
+    <tr>
+      <th>Name</th>
+      <th>IP Address</th>
+      <th>RAM Capacity</th>
+      <th>Processor</th>
+      <th>HDD Capacity</th>
+      <th>Operating System</th>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Location</th>
+      <th>Serial Number</th>
+      
+    
+    </tr>
+  </thead>
+
+  <tbody>
+
+    {% for dr_site in dr_site %}
+
+    <tr>
+      <td><a href="{% url 'container_items' dr_site.pk %}" class="btn btn-outline-primary btn btn-sm" role="button" aria-pressed="true"> {{ dr_site.name }}</a></td>
+      <td>{{ dr_site.ip_address}}</td>
+      <td>{{ dr_site.ram }} GB </td>
+      <td>{{ dr_site.processor }}</td>
+      <td>{{ dr_site.hdd }} GB</td>
+      <td>{{ dr_site.os }}</td>
+      {% if dr_site.status == "Running" %}
+      <td><a class="alert alert-success" role="alert" aria-pressed="false">{{ dr_site.status }}</a></td>
+      {% else %}
+      <td><a class="alert alert-danger" role="alert" aria-pressed="false">{{ dr_site.status }}</a></td>
+      {% endif %}
+      <td>{{ dr_site.descriptions }}</td>
+      <td>{{ dr_site.site }}</td>
+      <td>{{ dr_site.sn }}</td>
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+
+</table>
+
+{% endblock %}
